@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowseSharpScraperExamples", "BrowseSharpScraperExamples\BrowseSharpScraperExamples.csproj", "{D07264EF-798B-426B-968E-8DFEBA7361DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowseSharp", "..\BrowseSharp\BrowseSharp\BrowseSharp.csproj", "{2770E5C4-45E1-4547-9069-A41572937C81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{D07264EF-798B-426B-968E-8DFEBA7361DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D07264EF-798B-426B-968E-8DFEBA7361DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D07264EF-798B-426B-968E-8DFEBA7361DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2770E5C4-45E1-4547-9069-A41572937C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2770E5C4-45E1-4547-9069-A41572937C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2770E5C4-45E1-4547-9069-A41572937C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2770E5C4-45E1-4547-9069-A41572937C81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
