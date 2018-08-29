@@ -230,9 +230,9 @@ namespace BrowseSharpScraperExamples.NFLScraper
                 {
                     game.HomeAbbreviation = ScrapeCommentContent(elementString);
                 }
-                if (game != null)
-                    days.Add(game);
             }
+            if (game != null)
+                days.Add(game);
 
             return days;
         }
