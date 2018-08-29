@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BrowseSharpScraperExamples.NFLScraper.Schedule
 {
-    public interface IRawSchedule
+    public interface IRaw
     {
         List<Object> RawElements { get; set; }
     }

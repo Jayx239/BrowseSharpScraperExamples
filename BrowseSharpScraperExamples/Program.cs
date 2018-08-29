@@ -6,9 +6,9 @@ namespace BrowseSharpScraperExamples
     {
         public static void Main(string[] args)
         {
+
             NFLScraper.NFLScraper nflScraper = new NFLScraper.NFLScraper();
-            //IDocument homePage = nflScraper.GoHome().GetAwaiter().GetResult();
-            NFLScraper.Schedule.ScheduleModel scheduleModel = nflScraper.GetSchedule(NFLScraper.NFLScraper.ScheduleDates["REG1"], 2018).GetAwaiter().GetResult();
+            NFLScraper.Schedule.Schedule scheduleModel = nflScraper.GetSchedule(NFLScraper.NFLScraper.ScheduleDates["REG1"], 2018).GetAwaiter().GetResult();
             
         }
     }

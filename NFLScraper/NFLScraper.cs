@@ -41,9 +41,9 @@ namespace BrowseSharpScraperExamples.NFLScraper
         /// <param name="scheduleDate">Schedule date from ScheduleDates dictionary</param>
         /// <param name="year">Schedule Year</param>
         /// <returns>Scraped SchedultModel</returns>
-        public async Task<ScheduleModel> GetSchedule(string scheduleDate, int year)
+        public async Task<Schedule.Schedule> GetSchedule(string scheduleDate, int year)
         {
-            ScheduleModel scheduleModel = new ScheduleModel();
+            Schedule.Schedule scheduleModel = new Schedule.Schedule();
 
             IDocument scheduleDoc = await LoadSchedule(scheduleDate, year);
             scheduleModel = await ScrapeSchedule(scheduleDoc);
@@ -96,10 +96,10 @@ namespace BrowseSharpScraperExamples.NFLScraper
         /// </summary>
         /// <param name="scheduleDocument">Schedule document to be scraped</param>
         /// <returns>Scraped ScheduleModel</returns>
-        public async Task<ScheduleModel> ScrapeSchedule(IDocument scheduleDocument)
+        public async Task<Schedule.Schedule> ScrapeSchedule(IDocument scheduleDocument)
         {
             IHtmlCollection<IElement> matchupContainers = scheduleDocument.HtmlDocument.QuerySelectorAll(".schedules-list .schedules-table");
-            ScheduleModel scheduleModel = new ScheduleModel();
+            Schedule.Schedule scheduleModel = new Schedule.Schedule();
 
             foreach (var matchupContainer in matchupContainers)
             {
@@ -115,23 +115,19 @@ namespace BrowseSharpScraperExamples.NFLScraper
 
             scheduleModel.ScheduleDays = GetGameDays(scheduleModel.RawElements);
 
-            foreach (ScheduleDay scheduleDay in scheduleModel.ScheduleDays)
+            foreach (Day scheduleDay in scheduleModel.ScheduleDays)
             {
                 scheduleDay.Games = GetGames(scheduleDay);
             }
 
-            return scheduleModel; // TODO: Create model and inject data
+            return scheduleModel;
 
         }
 
-        private List<ScheduleDay> GetGameDays(List<object> matchupDays)
+        private List<Day> GetGameDays(List<object> matchupDays)
         {
-            /*List<List<Object>> gameDays = new List<List<Object>>();
-            List<Object> gameDay = new List<Object>();*/
-
-            List<ScheduleDay> scheduleDays = new List<ScheduleDay>();
-            ScheduleDay scheduleDay = null;
-            bool firstGameDayHit = false;
+            List<Day> scheduleDays = new List<Day>();
+            Day scheduleDay = null;
 
             foreach (Object element in matchupDays)
             {
@@ -140,7 +136,7 @@ namespace BrowseSharpScraperExamples.NFLScraper
                 {
                     if (scheduleDay != null)
                         scheduleDays.Add(scheduleDay);
-                    scheduleDay = new ScheduleDay();
+                    scheduleDay = new Day();
                     scheduleDay.Key = ScrapeCommentContent(elementString);
                 }
                 if (scheduleDay != null)
@@ -164,7 +160,7 @@ namespace BrowseSharpScraperExamples.NFLScraper
             return dirtyContent.Replace(":", "").Trim();
         }
 
-        private List<Game> GetGames(ScheduleDay scheduleDay)
+        private List<Game> GetGames(Day scheduleDay)
         {
             List<Game> days = new List<Game>();
             Game game = null;
@@ -222,14 +218,7 @@ namespace BrowseSharpScraperExamples.NFLScraper
                 {
                     game.HomeCityName = ScrapeCommentContent(elementString);
                 }
-                else if (elementString.Contains("awayAbbr"))
-                {
-                    game.HomeAbbreviation = ScrapeCommentContent(elementString);
-                }
-                else if (elementString.Contains("homeAbbr"))
-                {
-                    game.HomeAbbreviation = ScrapeCommentContent(elementString);
-                }
+                game.RawElements.Add(element);
             }
             if (game != null)
                 days.Add(game);

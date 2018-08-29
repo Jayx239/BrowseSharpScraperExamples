@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BrowseSharpScraperExamples.NFLScraper.Schedule
 {
-    public class ScheduleDay : IRawSchedule
+    public class Day : IRaw
     {
-        public ScheduleDay()
+        public Day()
         {
             _rawElements = new List<object>();
         }

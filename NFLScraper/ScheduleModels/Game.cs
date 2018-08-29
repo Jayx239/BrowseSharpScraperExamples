@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BrowseSharpScraperExamples.NFLScraper.Schedule
 {
-    public class Game : IRawSchedule
+    public class Game : IRaw
     {
         public Game()
         {
@@ -24,8 +24,6 @@ namespace BrowseSharpScraperExamples.NFLScraper.Schedule
         public string HomeName { get; set; }
         public string AwayCityName { get; set; }
         public string HomeCityName { get; set; }
-        public string AwayCityAbbreviation { get; set; }
-        public string HomeCityAbbreviation { get; set; }
 
     }
 }

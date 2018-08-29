@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowseSharpScraperExamples", "BrowseSharpScraperExamples\BrowseSharpScraperExamples.csproj", "{D07264EF-798B-426B-968E-8DFEBA7361DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFLScraper", "NFLScraper\NFLScraper.csproj", "{FD351EB9-D94D-4A1D-B1C9-CED118CAB4B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D07264EF-798B-426B-968E-8DFEBA7361DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D07264EF-798B-426B-968E-8DFEBA7361DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D07264EF-798B-426B-968E-8DFEBA7361DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD351EB9-D94D-4A1D-B1C9-CED118CAB4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD351EB9-D94D-4A1D-B1C9-CED118CAB4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD351EB9-D94D-4A1D-B1C9-CED118CAB4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD351EB9-D94D-4A1D-B1C9-CED118CAB4B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
