@@ -1,11 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="BrowseSharp" Version="0.0.4" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
-
 </Project>
