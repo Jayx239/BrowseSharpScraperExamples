@@ -41,14 +41,14 @@ namespace BrowseSharpScraperExamples.NFLScraper
         /// <param name="scheduleDate">Schedule date from ScheduleDates dictionary</param>
         /// <param name="year">Schedule Year</param>
         /// <returns>Scraped SchedultModel</returns>
-        public async Task<Schedule.Schedule> GetSchedule(string scheduleDate, int year)
+        public async Task<Schedule.Week> GetSchedule(string scheduleDate, int year)
         {
-            Schedule.Schedule scheduleModel = new Schedule.Schedule();
+            Schedule.Week weekModel = new Schedule.Week();
 
             IDocument scheduleDoc = await LoadSchedule(scheduleDate, year);
-            scheduleModel = await ScrapeSchedule(scheduleDoc);
+            weekModel = await ScrapeSchedule(scheduleDoc);
 
-            return scheduleModel;
+            return weekModel;
         }
 
         /// <summary>
@@ -66,6 +66,7 @@ namespace BrowseSharpScraperExamples.NFLScraper
         /// <summary>
         /// Schedule Data Keys used in url for searching came week
         /// </summary>
+        /// TODO: Pull these details in dynamically from the site
         public static Dictionary<string, string> ScheduleDates = new Dictionary<string, string>()
         {
             {"PRE1","PRE1"},
@@ -96,10 +97,10 @@ namespace BrowseSharpScraperExamples.NFLScraper
         /// </summary>
         /// <param name="scheduleDocument">Schedule document to be scraped</param>
         /// <returns>Scraped ScheduleModel</returns>
-        public async Task<Schedule.Schedule> ScrapeSchedule(IDocument scheduleDocument)
+        public async Task<Schedule.Week> ScrapeSchedule(IDocument scheduleDocument)
         {
             IHtmlCollection<IElement> matchupContainers = scheduleDocument.HtmlDocument.QuerySelectorAll(".schedules-list .schedules-table");
-            Schedule.Schedule scheduleModel = new Schedule.Schedule();
+            Schedule.Week weekModel = new Schedule.Week();
 
             foreach (var matchupContainer in matchupContainers)
             {
@@ -107,23 +108,28 @@ namespace BrowseSharpScraperExamples.NFLScraper
                 MatchCollection results = regex.Matches(matchupContainer.InnerHtml.ToString());
                 foreach (var result in results)
                 {
-                    scheduleModel.RawElements.Add(result);
+                    weekModel.RawElements.Add(result);
                     Console.WriteLine(result.ToString());
                 }
 
             }
 
-            scheduleModel.ScheduleDays = GetGameDays(scheduleModel.RawElements);
+            weekModel.ScheduleDays = GetGameDays(weekModel.RawElements);
 
-            foreach (Day scheduleDay in scheduleModel.ScheduleDays)
+            foreach (Day scheduleDay in weekModel.ScheduleDays)
             {
                 scheduleDay.Games = GetGames(scheduleDay);
             }
 
-            return scheduleModel;
+            return weekModel;
 
         }
 
+        /// <summary>
+        /// Scrapes game days from list of Match objects
+        /// </summary>
+        /// <param name="matchupDays">Obejcts of match details</param>
+        /// <returns>List of Game Day models</returns>
         private List<Day> GetGameDays(List<object> matchupDays)
         {
             List<Day> scheduleDays = new List<Day>();
@@ -149,6 +155,11 @@ namespace BrowseSharpScraperExamples.NFLScraper
             return scheduleDays;
         }
 
+        /// <summary>
+        /// Scrapes elements contained in comments following format: <!-- key: value -->
+        /// </summary>
+        /// <param name="commentContent"><!-- key: value --></param>
+        /// <returns>Comment value as string</returns>
         private string ScrapeCommentContent(string commentContent)
         {
             Regex scriptScrapeRegex = new Regex("(?=:).*(?=-->)");
@@ -159,7 +170,12 @@ namespace BrowseSharpScraperExamples.NFLScraper
         {
             return dirtyContent.Replace(":", "").Trim();
         }
-
+            
+        /// <summary>
+        /// Gets games from game day
+        /// </summary>
+        /// <param name="scheduleDay">Day containing game content</param>
+        /// <returns>List of games</returns>
         private List<Game> GetGames(Day scheduleDay)
         {
             List<Game> days = new List<Game>();
